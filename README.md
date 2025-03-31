@@ -19,5 +19,5 @@ Web scrapper application for online Guarani text developed under the initiative 
 - [lenguagurani](https://lenguaguarani.blogspot.com/): blog about guarani
 - [Constitución](https://guaraniayvu.org/Constitution): paraguayan constitution in guarani
 - [Guarani Renda](https://guaranirenda.tripod.com/index_ovetanda.htm): bilingual site
-- [Sociedad Biblica Paraguay](ttps://guarani.global.bible/bible/c6d3311681a81388-01/MAT.1): biblical passages
+- [Sociedad Biblica Paraguay](https://guarani.global.bible/bible/c6d3311681a81388-01/MAT.1): biblical passages
 
