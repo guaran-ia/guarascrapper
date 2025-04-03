@@ -20,4 +20,5 @@ Web scrapper application for online Guarani text developed under the initiative 
 - [Constitución](https://guaraniayvu.org/Constitution): paraguayan constitution in guarani
 - [Guarani Renda](https://guaranirenda.tripod.com/index_ovetanda.htm): bilingual site
 - [Sociedad Biblica Paraguay](https://guarani.global.bible/bible/c6d3311681a81388-01/MAT.1): biblical passages
+- [Ministerio de Economia y Finanzas Paraguay](https://www.stp.gov.py/v1/?s=%C3%91e%C2%B4%C3%AA+): articles in guarani from a part of paraguayan goverment site
 
