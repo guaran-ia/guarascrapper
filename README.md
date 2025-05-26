@@ -27,3 +27,59 @@ Web sources selected to extract Guarani text using the scraper.
 - [Sociedad Biblica Paraguay](https://guarani.global.bible/bible/c6d3311681a81388-01/MAT.1): biblical passages
 - [Ministerio de Economia y Finanzas Paraguay](https://www.stp.gov.py/v1/?s=%C3%91e%C2%B4%C3%AA+): articles in guarani from a part of paraguayan goverment site
 
+---
+
+## Installation
+
+### Prerequisites
+- Python 3.8+
+- pip (Python package manager)
+
+### Setup Instructions
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/guaran-ia/guarascrapper
+   cd guarascrapper
+   ```
+
+2. **Create and activate a virtual environment** (recommended):
+   ```bash
+   python3 -m venv venv
+   
+   # On Windows
+   venv\Scripts\activate
+   
+   # On macOS/Linux
+   source venv/bin/activate
+   ```
+
+   3. **Install dependencies**:
+   ```bash
+    pip3 install -r requirements.txt
+   ```
+
+   4. **Download the FastText language identification model**:
+
+   ```bash
+   mkdir -p guarani_scraper/guarani_scraper/utils/lang_model
+   
+   curl https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.bin -o guarani_scraper/guarani_scraper/utils/lang_model/lid.176.bin
+   ```
+
+## Usage
+
+### Basic Usage
+To run the scraper using the included list of Guarani websites:
+
+```bash
+python3 cli.py --csv data/web_sources.csv
+```
+
+## Configuration
+
+You can modify the following files to adjust the scraper's behavior:
+
+- **`guarani_scraper/settings.py`**: Adjust crawling settings like delay, throttling, and user agent
+- **`guarani_scraper/guarani_scraper/utils/lang_detector.py`**: Fine-tune the language detection logic
+- **`data/web_sources.csv`**: Add or remove websites to be scraped
