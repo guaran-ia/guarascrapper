@@ -5,6 +5,15 @@ from guarani_scraper.guarani_scraper.spiders.guarani_spider import GuaraniSpider
 
 
 def main():
+    """
+    Main entry point for the Guarani scraper CLI.
+
+    Parses command-line arguments and starts the crawler process
+    to scrape Guarani words from websites listed in the provided CSV file.
+
+    Command-line arguments:
+        --csv: Path to a CSV file with columns: name,description,url
+    """
     parser = argparse.ArgumentParser(
         description="Scraper de palabras en guarani de sitios web."
     )
@@ -13,7 +22,7 @@ def main():
     )
 
     args = parser.parse_args()
-    
+
     process = CrawlerProcess(get_project_settings())
     process.crawl(GuaraniSpider, csv_file=args.csv)
     process.start()

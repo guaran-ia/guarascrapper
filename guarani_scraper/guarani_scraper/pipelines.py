@@ -6,27 +6,53 @@
 
 # useful for handling different item types with a single interface
 import os
-from urllib.parse import urlparse  
 from itemadapter import ItemAdapter
 
 
 class GuaraniScraperPipeline:
-    
+    """
+    Pipeline for processing and storing scraped Guarani words.
+
+    Words are saved to text files in the 'corpus' directory,
+    with each file named after the domain from which the words were scraped.
+    """
+
     def __init__(self):
+        """
+        Initialize the pipeline by creating the corpus directory
+        and preparing the file handles dictionary.
+        """
         self.files = {}
         os.makedirs("../../corpus", exist_ok=True)
-    
+
     def process_item(self, item, spider):
+        """
+        Process a GuaraniWord item by writing it to the appropriate file.
+
+        Words from the same domain are written to the same file.
+
+        Args:
+            item (GuaraniWord): The item containing a scraped Guarani word
+            spider (Spider): The spider that scraped this item
+
+        Returns:
+            GuaraniWord: The processed item
+        """
         adapter = ItemAdapter(item)
         domain = adapter["domain"]
-        
+
         if domain not in self.files:
             self.files[domain] = open(f"corpus/{domain}.txt", "w", encoding="utf-8")
-            
+
         self.files[domain].write(f"{adapter['word']}\n")
         return item
-    
+
     def close_spider(self, spider):
+        """
+        Clean up when the spider finishes by closing all open files.
+
+        Args:
+            spider (Spider): The spider that has finished running
+        """
         for file in self.files.values():
             file.close()
-            
