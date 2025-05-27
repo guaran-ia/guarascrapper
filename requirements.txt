@@ -18,7 +18,7 @@ jmespath==1.0.1
 langdetect==1.0.9
 lxml==5.4.0
 Morfessor==2.0.6
-numpy==2.2.5
+numpy==1.26.0
 packaging==25.0
 parsel==1.10.0
 polyglot==16.7.4

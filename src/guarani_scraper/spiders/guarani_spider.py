@@ -59,17 +59,24 @@ class GuaraniSpider(CrawlSpider):
             GuaraniWord: Items containing Guarani words along with metadata
                          such as the source URL and domain
         """
-        # Extract all text
-        text = " ".join(response.xpath("//text()").getall())
-        words = [w.strip() for w in text.split() if w.strip()]
+        text_chunks = response.xpath(
+            '//p//text() | //div[not(contains(@class, "nav"))]//text()'
+        ).getall()
 
-        batch_size = 100
-        for i in range(0, len(words), batch_size):
-            batch = words[i : i + batch_size]
-            for word in batch:
-                if self.detector.is_guarani(word):
-                    yield GuaraniWord(
-                        word=word,
-                        url=response.url,
-                        domain=urlparse(response.url).netloc,
-                    )
+        for chunk in text_chunks:
+            chunk = chunk.strip()
+            if not chunk or len(chunk) < 50:  # Skip short chunks
+                continue
+
+            # Check if this chunk is Guarani
+            if self.detector.is_guarani(chunk):
+                # Now extract words from this Guarani chunk
+                words = [w.strip() for w in chunk.split() if w.strip()]
+                for word in words:
+                    # Additional filtering if needed
+                    if len(word) > 2:  # Skip very short words
+                        yield GuaraniWord(
+                            word=word,
+                            url=response.url,
+                            domain=urlparse(response.url).netloc,
+                        )

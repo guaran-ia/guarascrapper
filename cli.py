@@ -1,7 +1,7 @@
 import argparse
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-from guarani_scraper.guarani_scraper.spiders.guarani_spider import GuaraniSpider
+from src.guarani_scraper.spiders.guarani_spider import GuaraniSpider
 
 
 def main():

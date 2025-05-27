@@ -1,6 +1,7 @@
 from polyglot.detect import Detector
 import fasttext
 import os
+import numpy as np
 
 
 class GuaraniDetector:
@@ -34,21 +35,26 @@ class GuaraniDetector:
 
         # FastText vote
         try:
-            # Create a sentence with repeated word for better detection
-            text_to_check = (text + " ") * 5
-            prediction = self.fasttext_model.predict(text_to_check)
-            lang = prediction[0]
-            if lang[0] == "__label__gn":
+            # Explicit conversion to numpy array if needed
+            if isinstance(text, np.ndarray):
+                text = str(text)
+                
+            # Remove newlines and clean the text
+            cleaned_text = text.strip().replace('\n', ' ').replace('\r', '')
+            
+            prediction = self.fasttext_model.predict(cleaned_text, k=1)
+            if (prediction[0][0] == "__label__gn" and 
+                prediction[1][0] >= 0.7):
                 votes += 1
         except Exception as e:
             print(f"FastText detection error: {e}")
 
         # Polyglot vote
         try:
-            # Create a sentence with repeated word for better detection
-            text_to_check = (text + " ") * 5
-            detector = Detector(text_to_check)
-            if detector.language.code == "gn":
+            
+            detector = Detector(cleaned_text)
+            if (detector.language.code == "gn" and 
+                detector.language.confidence >= 70):
                 votes += 1
         except Exception as e:
             print(f"Polyglot detection error: {e}")

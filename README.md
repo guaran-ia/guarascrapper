@@ -1,6 +1,7 @@
 # Guarascrapper
+
 Web scrapper application for online Guarani text developed under the initiative UCA Autumn of Code 2025.
----
+
 
 # Web Sources
 - [Secretaría Nacional de Cultura Paraguay](https://cultura.gov.py/): part of paraguayan goverment sites
@@ -22,15 +23,14 @@ Web scrapper application for online Guarani text developed under the initiative 
 - [Sociedad Biblica Paraguay](https://guarani.global.bible/bible/c6d3311681a81388-01/MAT.1): biblical passages
 - [Ministerio de Economia y Finanzas Paraguay](https://www.stp.gov.py/v1/?s=%C3%91e%C2%B4%C3%AA+): articles in guarani from a part of paraguayan goverment site
 
----
 
-## Installation
+# Installation
 
-### Prerequisites
-- Python 3.8+
+## Prerequisites
+- Python 3.12+
 - pip (Python package manager)
 
-### Setup Instructions
+## Setup Instructions
 
 1. **Clone the repository**:
    ```bash
@@ -70,6 +70,7 @@ To run the scraper using the included list of Guarani websites:
 ```bash
 python3 cli.py --csv data/web_sources.csv
 ```
+The scraped Guarani words will be saved in the `corpus` directory, with each file named after the domain from which the words were scraped.
 
 ## Configuration
 
