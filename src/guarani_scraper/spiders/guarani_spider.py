@@ -33,10 +33,24 @@ class GuaraniSpider(CrawlSpider):
         if csv_file:
             with open(csv_file) as f:
                 reader = csv.DictReader(f)
-                self.start_urls = [row["url"] for row in reader]
+                urls = [row["url"] for row in reader]
+                self.start_urls = urls
+                
+                # Extract allowed domains from start URLs
+                self.allowed_domains = []
+                for url in urls:
+                    domain = urlparse(url).netloc
+                    if domain not in self.allowed_domains:
+                        self.allowed_domains.append(domain)
 
-        # Configure rules
-        self.rules = (Rule(LinkExtractor(), callback="parse_item", follow=True),)
+        # Configure rules - restrict to allowed domains
+        self.rules = (
+            Rule(
+                LinkExtractor(allow_domains=self.allowed_domains), 
+                callback="parse_item", 
+                follow=True
+            ),
+        )
 
         super()._compile_rules()
 
@@ -65,7 +79,7 @@ class GuaraniSpider(CrawlSpider):
 
         for chunk in text_chunks:
             chunk = chunk.strip()
-            if not chunk or len(chunk) < 50:  # Skip short chunks
+            if not chunk or len(chunk) < 100:  # Skip short chunks
                 continue
 
             # Check if this chunk is Guarani

@@ -23,7 +23,13 @@ class GuaraniScraperPipeline:
         and preparing the file handles dictionary.
         """
         self.files = {}
-        os.makedirs("../../corpus", exist_ok=True)
+
+        # Use absolute path to ensure consistency
+        project_root = os.path.dirname(
+            os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+        )
+        self.corpus_dir = os.path.join(project_root, "corpus")
+        os.makedirs(self.corpus_dir, exist_ok=True)
 
     def process_item(self, item, spider):
         """
@@ -42,7 +48,8 @@ class GuaraniScraperPipeline:
         domain = adapter["domain"]
 
         if domain not in self.files:
-            self.files[domain] = open(f"corpus/{domain}.txt", "w", encoding="utf-8")
+            filepath = os.path.join(self.corpus_dir, f"{domain}.txt")
+            self.files[domain] = open(filepath, "w", encoding="utf-8")
 
         self.files[domain].write(f"{adapter['word']}\n")
         return item
